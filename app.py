@@ -31,20 +31,13 @@ def load_secrets():
         else:
             st.error(f'Ошибка загрузки: {response.status_code}')
     except Exception as e:
-        st.error(f'Ошибка при загрузке секретов: {e}')
+        st.error(f'Ошибка при загрузке файла: {e}')
 
 # Проверка secrets.toml
 secrets_path = os.path.expanduser('~/.streamlit/secrets.toml')
 
 if not os.path.exists(secrets_path):
     load_secrets()
-else:
-    # Проверка структуры файла
-    with open(secrets_path, 'r') as f:
-        content = f.read()
-        if '[credentials]' not in content:
-            st.error('Ошибка в локальных секретах: раздел [credentials] отсутствует')
-            load_secrets()
 
 # Функция аутентификации
 def authenticate():
@@ -83,7 +76,6 @@ if authenticate():
       if st.sidebar.button('Выйти'):
           st.session_state.clear()
           st.experimental_rerun()
-  st.title('Прогнозирование абитуриентов')
 
   # Основной интерфейс
   st.title('Система прогнозирования набора абитуриентов на направления подготовки высшего образования')
