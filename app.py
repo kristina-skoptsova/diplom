@@ -1,4 +1,3 @@
-%%writefile app.py
 from keras.models import load_model
 import streamlit as st
 import pandas as pd
